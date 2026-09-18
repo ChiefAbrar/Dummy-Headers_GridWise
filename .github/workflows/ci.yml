@@ -1,0 +1,20 @@
+name: C++ CI
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-test:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential cmake libboost-all-dev libcurl4-openssl-dev ca-certificates
+      - name: Build
+        run: cmake --preset release && cmake --build build -j2 --target gridwise_server gridwise_tests
+      - name: Public cases
+        run: ./build/gridwise_tests tests/fixtures_public_samples.json
+      - name: Health binary exists
+        run: test -x ./build/gridwise_server

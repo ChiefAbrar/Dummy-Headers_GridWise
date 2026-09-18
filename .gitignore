@@ -1,0 +1,11 @@
+/build/
+.env
+*.log
+*.o
+*.a
+*.so
+*.dylib
+.DS_Store
+build/
+CMakeFiles/
+a.out
